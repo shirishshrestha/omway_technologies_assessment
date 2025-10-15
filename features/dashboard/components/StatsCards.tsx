@@ -25,30 +25,32 @@ export function StatsCards() {
       title: "Total Products",
       value: products ? products.total : "0",
       icon: Package,
-      trend: "up",
     },
     {
       title: "Total Product Categories",
       value: categories ? categories.length : "0",
-      change: "+8%",
+
       icon: ShoppingCart,
-      trend: "up",
     },
     {
       title: "Inventory Value",
       value: totalValue ? `$${totalValue.toLocaleString("en-US")}` : "$0.00",
-      change: "+23%",
+
       icon: DollarSign,
-      trend: "up",
     },
     {
       title: "Average Rating",
       value: avgRating ? avgRating.toFixed(1) : "0.0",
-      change: "+2.1%",
       icon: Star,
-      trend: "up",
     },
   ];
+
+  const lowStockItems = products?.products.filter(
+    (p: any) => p.stock < 50
+  ).length;
+  const highStockItems = products?.products.filter(
+    (p: any) => p.stock >= 50
+  ).length;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

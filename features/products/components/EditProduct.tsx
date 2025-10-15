@@ -45,14 +45,12 @@ type EditProductModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   product: Product;
-  onEdit: (product: Product) => void;
 };
 
 export function EditProductModal({
   open,
   onOpenChange,
   product,
-  onEdit,
 }: EditProductModalProps) {
   const { data: categoryList } = useGetCategoryList();
   const form = useForm({

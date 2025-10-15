@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Package, Search, Plus, Pencil, Trash2 } from "lucide-react";
+import { Package, Plus, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -28,14 +27,11 @@ import {
   useGetProducts,
 } from "@/features/products";
 import { ProductsType } from "@/features/shared/types/types";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
 import { useGetCategoryList } from "@/features/products/hooks/query/useGetCategory";
 import { useDeleteProduct } from "@/features/products/hooks/mutation/useDeleteProduct";
-// import { AddProductModal } from "@/components/add-product-modal";
-// import { EditProductModal } from "@/components/edit-product-modal";
 
 type Product = {
   id: number;
@@ -43,88 +39,11 @@ type Product = {
   category: string;
   price: number;
   stock: number;
-  status: string;
-  image: string;
+  availabilityStatus: string;
 };
-
-const initialProducts: Product[] = [
-  {
-    id: 1,
-    title: "Wireless Headphones",
-    category: "Electronics",
-    price: 129.99,
-    stock: 45,
-    status: "In Stock",
-    image: "/wireless-headphones.png",
-  },
-  {
-    id: 2,
-    title: "Smart Watch",
-    category: "Electronics",
-    price: 299.99,
-    stock: 23,
-    status: "In Stock",
-    image: "/smartwatch-lifestyle.png",
-  },
-  {
-    id: 3,
-    title: "Running Shoes",
-    category: "Sports",
-    price: 89.99,
-    stock: 67,
-    status: "In Stock",
-    image: "/running-shoes.jpg",
-  },
-  {
-    id: 4,
-    title: "Coffee Maker",
-    category: "Home",
-    price: 79.99,
-    stock: 12,
-    status: "Low Stock",
-    image: "/modern-coffee-maker.png",
-  },
-  {
-    id: 5,
-    title: "Yoga Mat",
-    category: "Sports",
-    price: 34.99,
-    stock: 89,
-    status: "In Stock",
-    image: "/rolled-yoga-mat.png",
-  },
-  {
-    id: 6,
-    title: "Desk Lamp",
-    category: "Home",
-    price: 49.99,
-    stock: 0,
-    status: "Out of Stock",
-    image: "/modern-desk-lamp.png",
-  },
-  {
-    id: 7,
-    title: "Bluetooth Speaker",
-    category: "Electronics",
-    price: 69.99,
-    stock: 34,
-    status: "In Stock",
-    image: "/bluetooth-speaker.jpg",
-  },
-  {
-    id: 8,
-    title: "Water Bottle",
-    category: "Sports",
-    price: 24.99,
-    stock: 156,
-    status: "In Stock",
-    image: "/reusable-water-bottle.png",
-  },
-];
 
 export default function ProductsPage() {
   const router = useRouter();
-  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -136,7 +55,7 @@ export default function ProductsPage() {
   const categoryValue = searchParams.get("category") || "";
 
   const handlePageChange = (newSkip: number) => {
-    router.push(`?skip=${newSkip}`); // updates the URL and triggers a rerender
+    router.push(`?skip=${newSkip}`);
   };
 
   const handleCategoryFilter = (value: string) => {
@@ -145,26 +64,10 @@ export default function ProductsPage() {
   };
 
   const productParams = { limit: 10, skip, categoryValue };
+
   const { data: allProducts } = useGetProducts(productParams);
 
   const { data: categoryList } = useGetCategoryList();
-
-  const handleAddProduct = (newProduct: Omit<Product, "id">) => {
-    const product = {
-      ...newProduct,
-      id: Math.max(...products.map((p) => p.id)) + 1,
-    };
-    setProducts([...products, product]);
-    setIsAddModalOpen(false);
-  };
-
-  const handleEditProduct = (updatedProduct: Product) => {
-    setProducts(
-      products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-    );
-    setIsEditModalOpen(false);
-    setEditingProduct(null);
-  };
 
   const deleteProduct = useDeleteProduct();
 
@@ -312,7 +215,6 @@ export default function ProductsPage() {
           open={isEditModalOpen}
           onOpenChange={setIsEditModalOpen}
           product={editingProduct}
-          onEdit={handleEditProduct}
         />
       )}
     </div>
