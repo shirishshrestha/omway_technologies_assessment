@@ -198,7 +198,7 @@ export default function ProductsPage() {
 
         {/* Search and Filter */}
         <Card className=" px-0 py-6">
-          <CardContent className=" flex  gap-4 w-full">
+          <CardContent className=" flex flex-col md:flex-row gap-4 w-full">
             <div className="flex gap-4">
               <div className="relative flex-1">
                 <SearchInput />
@@ -219,88 +219,90 @@ export default function ProductsPage() {
           </CardContent>
         </Card>
 
-        <Card className="p-0">
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Product</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Stock</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {allProducts?.products.map((product: ProductsType) => (
-                  <TableRow key={product.id}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={product.thumbnail || "/placeholder.svg"}
-                          alt={product.title}
-                          className="h-10 w-10 rounded object-cover"
-                        />
-                        <span className="font-medium">{product.title}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="capitalize">
-                      {product.category}
-                    </TableCell>
-                    <TableCell className="font-semibold">
-                      ${product.price.toFixed(2)}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Package className="h-4 w-4 text-muted-foreground" />
-                        <span>{product.stock}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={
-                          product.availabilityStatus === "In Stock"
-                            ? "default"
-                            : product.availabilityStatus === "Low Stock"
-                            ? "secondary"
-                            : "destructive"
-                        }
-                      >
-                        {product.availabilityStatus}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => openEditModal(product)}
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDeleteProduct(product.id)}
-                        >
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
-                      </div>
-                    </TableCell>
+        <div className="flex w-full justify-center">
+          <Card className="p-0 w-fit md:w-full">
+            <CardContent className="p-0 overflow-x-scroll max-w-[320px] md:max-w-[100%] lg:max-w-[100%]">
+              <Table className="overflow-x-scroll">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Product</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead>Stock</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-          <Pagination
-            currentPage={page}
-            totalProducts={allProducts?.total || 0}
-            limit={10}
-            skip={skip}
-            onPageChange={handlePageChange}
-          />
-        </Card>
+                </TableHeader>
+                <TableBody>
+                  {allProducts?.products.map((product: ProductsType) => (
+                    <TableRow key={product.id}>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={product.thumbnail || "/placeholder.svg"}
+                            alt={product.title}
+                            className="h-10 w-10 rounded object-cover"
+                          />
+                          <span className="font-medium">{product.title}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="capitalize">
+                        {product.category}
+                      </TableCell>
+                      <TableCell className="font-semibold">
+                        ${product.price.toFixed(2)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Package className="h-4 w-4 text-muted-foreground" />
+                          <span>{product.stock}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={
+                            product.availabilityStatus === "In Stock"
+                              ? "default"
+                              : product.availabilityStatus === "Low Stock"
+                              ? "secondary"
+                              : "destructive"
+                          }
+                        >
+                          {product.availabilityStatus}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => openEditModal(product)}
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleDeleteProduct(product.id)}
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+            <Pagination
+              currentPage={page}
+              totalProducts={allProducts?.total || 0}
+              limit={10}
+              skip={skip}
+              onPageChange={handlePageChange}
+            />
+          </Card>
+        </div>
         <Toaster position="bottom-right" richColors />
       </div>
 
