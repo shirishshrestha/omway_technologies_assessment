@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, FolderTree } from "lucide-react";
+import { LayoutDashboard, Package } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,

@@ -22,7 +22,7 @@ export const getCategoryList = async () => {
   }
 };
 
-export const addProduct = async (product) => {
+export const addProduct = async (product: any) => {
   try {
     const response = await instance.post("/products/add", product);
     return response.data;
@@ -31,7 +31,7 @@ export const addProduct = async (product) => {
   }
 };
 
-export const editProduct = async (id, product) => {
+export const editProduct = async (id: any, product: any) => {
   try {
     const response = await instance.put(`/products/${id}`, product);
     return response.data;
@@ -40,7 +40,7 @@ export const editProduct = async (id, product) => {
   }
 };
 
-export const deleteProduct = async (id) => {
+export const deleteProduct = async (id: any) => {
   try {
     const response = await instance.delete(`/products/${id}`);
     return response.data;

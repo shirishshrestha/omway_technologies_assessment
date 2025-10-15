@@ -31,14 +31,6 @@ import {
 import { useGetCategoryList } from "../hooks/query/useGetCategory";
 import { useAddProduct } from "../hooks/mutation/useAddProduct";
 
-type Product = {
-  title: string;
-  category: string;
-  price: number;
-  stock: number;
-  availabilityStatus: string;
-};
-
 type AddProductModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -64,7 +56,7 @@ export function AddProductModal({ open, onOpenChange }: AddProductModalProps) {
     isSuccess,
   } = useAddProduct(onOpenChange);
 
-  const handleSubmit = (data) => {
+  const handleSubmit = (data: any) => {
     addProduct(data);
     form.reset();
   };
@@ -107,7 +99,7 @@ export function AddProductModal({ open, onOpenChange }: AddProductModalProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categoryList?.map((category) => (
+                        {categoryList?.map((category: any) => (
                           <SelectItem key={category} value={category}>
                             {category}
                           </SelectItem>
@@ -131,6 +123,19 @@ export function AddProductModal({ open, onOpenChange }: AddProductModalProps) {
                           step="0.01"
                           placeholder="0.00"
                           {...field}
+                          value={
+                            typeof field.value === "number" ||
+                            typeof field.value === "string"
+                              ? field.value
+                              : ""
+                          }
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === ""
+                                ? ""
+                                : parseFloat(e.target.value)
+                            )
+                          }
                         />
                       </FormControl>
                       <FormMessage />
@@ -144,7 +149,24 @@ export function AddProductModal({ open, onOpenChange }: AddProductModalProps) {
                     <FormItem>
                       <FormLabel>Stock</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="0" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="0"
+                          {...field}
+                          value={
+                            typeof field.value === "number" ||
+                            typeof field.value === "string"
+                              ? field.value
+                              : ""
+                          }
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === ""
+                                ? ""
+                                : parseFloat(e.target.value)
+                            )
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

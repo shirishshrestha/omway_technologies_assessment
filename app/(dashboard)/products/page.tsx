@@ -124,7 +124,7 @@ export default function ProductsPage() {
 
         <div className="flex w-full justify-center">
           <Card className="p-0 w-fit md:w-full">
-            <CardContent className="p-0 overflow-x-scroll max-w-[320px] md:max-w-[100%] lg:max-w-[100%]">
+            <CardContent className="p-0 overflow-x-scroll max-w-[320px] md:max-w-[100%] md:overflow-x-auto">
               <Table className="overflow-x-scroll">
                 <TableHeader>
                   <TableRow>

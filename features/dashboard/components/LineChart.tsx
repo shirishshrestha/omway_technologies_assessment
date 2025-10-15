@@ -31,11 +31,11 @@ export default function StockLineChart() {
   console.log(products?.products);
 
   const data = {
-    labels: products?.products.map((p) => p.brand),
+    labels: products?.products.map((p: any) => p.brand),
     datasets: [
       {
         label: "Price",
-        data: products?.products.map((p) => p.price),
+        data: products?.products.map((p: any) => p.price),
         borderColor: "#3b82f6", // blue
         backgroundColor: "rgba(59,130,246,0.2)",
         tension: 0.4,
@@ -43,7 +43,7 @@ export default function StockLineChart() {
       {
         label: "Discounted Price",
         data: products?.products.map(
-          (p) => p.price * (1 - p.discountPercentage / 100)
+          (p: any) => p.price * (1 - p.discountPercentage / 100)
         ),
         borderColor: "#facc15", // yellow
         backgroundColor: "rgba(250,204,21,0.2)",

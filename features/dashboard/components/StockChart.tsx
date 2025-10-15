@@ -31,7 +31,7 @@ const StockChart = () => {
     ],
   };
 
-  const options = {
+  const options: any = {
     plugins: {
       legend: {
         labels: {
@@ -39,7 +39,7 @@ const StockChart = () => {
           font: {
             size: 12,
             weight: "600",
-          },
+          } as const,
         },
       },
       title: {
@@ -49,7 +49,7 @@ const StockChart = () => {
         font: {
           size: 16,
           weight: "600",
-        },
+        } as const,
       },
     },
     maintainAspectRatio: false,
