@@ -80,11 +80,7 @@ export function EditProductModal({
     });
   }, [product, form]);
 
-  const {
-    mutate: editProduct,
-    isPending,
-    isSuccess,
-  } = useEditProduct(onOpenChange, product.id);
+  const { mutate: editProduct } = useEditProduct(onOpenChange, product.id);
 
   const handleSubmit = (data: ProductFormData) => {
     editProduct(data);
@@ -128,7 +124,7 @@ export function EditProductModal({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categoryList?.map((category) => (
+                        {categoryList?.map((category: string) => (
                           <SelectItem key={category} value={category}>
                             {category}
                           </SelectItem>
@@ -152,6 +148,19 @@ export function EditProductModal({
                           step="0.01"
                           placeholder="0.00"
                           {...field}
+                          value={
+                            typeof field.value === "number" ||
+                            typeof field.value === "string"
+                              ? field.value
+                              : ""
+                          }
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === ""
+                                ? ""
+                                : parseFloat(e.target.value)
+                            )
+                          }
                         />
                       </FormControl>
                       <FormMessage />
@@ -165,7 +174,24 @@ export function EditProductModal({
                     <FormItem>
                       <FormLabel>Stock</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="0" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="0"
+                          {...field}
+                          value={
+                            typeof field.value === "number" ||
+                            typeof field.value === "string"
+                              ? field.value
+                              : ""
+                          }
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === ""
+                                ? ""
+                                : parseFloat(e.target.value)
+                            )
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

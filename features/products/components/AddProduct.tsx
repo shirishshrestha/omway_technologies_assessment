@@ -99,7 +99,7 @@ export function AddProductModal({ open, onOpenChange }: AddProductModalProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categoryList?.map((category: any) => (
+                        {categoryList?.map((category: string) => (
                           <SelectItem key={category} value={category}>
                             {category}
                           </SelectItem>
