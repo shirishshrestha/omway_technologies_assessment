@@ -25,6 +25,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.status = false;
       state.userData = null;
+      document.cookie = "auth-token=; path=/; max-age=0";
       if (typeof window !== "undefined") {
         localStorage.removeItem("persist:auth");
       }

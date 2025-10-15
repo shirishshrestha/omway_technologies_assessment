@@ -6,13 +6,12 @@ import { LayoutDashboard, Package, FolderTree } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Logout } from "@/features/auth";
 
 const navigation = [
   {
@@ -25,18 +24,18 @@ const navigation = [
     href: "/products",
     icon: Package,
   },
-  {
-    name: "Categories",
-    href: "/categories",
-    icon: FolderTree,
-  },
+  // {
+  //   name: "Categories",
+  //   href: "/categories",
+  //   icon: FolderTree,
+  // },
 ];
 
 export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar>
+    <Sidebar className="">
       <SidebarHeader className="border-b border-sidebar-border">
         <div className="flex items-center gap-2 px-2 py-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -51,7 +50,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="pt-4">
+      <SidebarContent className="pt-4 px-3">
         <SidebarMenu>
           {navigation.map((item) => {
             const isActive = pathname === item.href;
@@ -61,6 +60,7 @@ export function AppSidebar() {
                   asChild
                   isActive={isActive}
                   tooltip={item.name}
+                  className="!py-5 "
                 >
                   <Link href={item.href}>
                     <item.icon />
@@ -70,6 +70,11 @@ export function AppSidebar() {
               </SidebarMenuItem>
             );
           })}
+        </SidebarMenu>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <Logout />
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
     </Sidebar>

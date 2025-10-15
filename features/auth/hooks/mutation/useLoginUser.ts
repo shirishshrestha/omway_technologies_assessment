@@ -1,12 +1,13 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { loginApi } from "../../api/LoginApiSlice";
+import { loginApi } from "../../api/AuthApiSlice";
 import { loginSchema } from "../../utils/loginSchema";
 import z from "zod";
 import { useDispatch } from "react-redux";
 import { login as authLogin } from "../../redux/authSlice";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
+import useCrossTabLogout from "../useCrossTabLogout";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -32,6 +33,7 @@ export const useLoginUser = (): UseMutationResult<
   LoginFormData
 > => {
   const dispatch = useDispatch();
+  const broadcast = useCrossTabLogout();
   const router = useRouter();
   return useMutation<
     LoginApiResponse,
@@ -44,6 +46,7 @@ export const useLoginUser = (): UseMutationResult<
         60 * 60 * 24 * 7
       }`; // 7 days
       dispatch(authLogin({ userData }));
+      broadcast("login");
       router.push("/"); // redirect
     },
     onError: () => {

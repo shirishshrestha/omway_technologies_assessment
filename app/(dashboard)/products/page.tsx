@@ -209,7 +209,7 @@ export default function ProductsPage() {
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
-                {categoryList?.map((category) => (
+                {categoryList?.map((category: string) => (
                   <SelectItem key={category} value={category}>
                     {category}
                   </SelectItem>
