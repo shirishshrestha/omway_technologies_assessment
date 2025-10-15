@@ -45,7 +45,7 @@ Endpoints include:
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/your-username/product-dashboard.git
+git clone https://github.com/shirishshrestha/omway_technologies_assessment.git
 cd product-dashboard
 ```
 
